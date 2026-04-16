@@ -60,7 +60,7 @@ def delete_expense(expense_id):
         return jsonify({'error': str(e)}), 500
     finally:
         cursor.close()
-
+        
 
 # GET /e/employee/<user_id>/income — Get all income records [Marcus-2]
 @employee.route('/employee/<int:user_id>/income', methods=['GET'])
