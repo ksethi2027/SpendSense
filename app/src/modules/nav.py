@@ -1,123 +1,71 @@
-# Idea borrowed from https://github.com/fsmosca/sample-streamlit-authenticator
-
-# This file has functions to add links to the left sidebar based on the user's role.
-
 import streamlit as st
 
-
-# ---- General ----------------------------------------------------------------
 
 def home_nav():
     st.sidebar.page_link("Home.py", label="Home", icon="🏠")
 
-
 def about_page_nav():
-    st.sidebar.page_link("pages/30_About.py", label="About", icon="🧠")
+    st.sidebar.page_link("pages/40_About.py", label="About", icon="ℹ️")
 
+# Student
+def student_home_nav():
+    st.sidebar.page_link("pages/00_Student_Home.py", label="Student Home", icon="🎓")
+def semester_budget_nav():
+    st.sidebar.page_link("pages/01_Semester_Budget.py", label="Semester Budget", icon="📊")
+def track_expenses_nav():
+    st.sidebar.page_link("pages/02_Track_Expenses.py", label="Track Expenses", icon="💸")
+def savings_goals_nav():
+    st.sidebar.page_link("pages/03_Savings_Goals.py", label="Savings Goals", icon="🎯")
 
-# ---- Role: pol_strat_advisor ------------------------------------------------
+# Analyst
+def analyst_home_nav():
+    st.sidebar.page_link("pages/10_Analyst_Home.py", label="Analyst Home", icon="📈")
+def portfolio_overview_nav():
+    st.sidebar.page_link("pages/11_Portfolio_Overview.py", label="Portfolio Overview", icon="💼")
+def spending_analysis_nav():
+    st.sidebar.page_link("pages/12_Spending_Analysis.py", label="Spending Analysis", icon="📉")
+def risk_returns_nav():
+    st.sidebar.page_link("pages/13_Risk_Returns.py", label="Risk & Returns", icon="⚖️")
 
-def pol_strat_home_nav():
-    st.sidebar.page_link(
-        "pages/00_Pol_Strat_Home.py", label="Political Strategist Home", icon="👤"
-    )
-
-
-def world_bank_viz_nav():
-    st.sidebar.page_link(
-        "pages/01_World_Bank_Viz.py", label="World Bank Visualization", icon="🏦"
-    )
-
-
-def map_demo_nav():
-    st.sidebar.page_link("pages/02_Map_Demo.py", label="Map Demonstration", icon="🗺️")
-
-
-# ---- Role: usaid_worker -----------------------------------------------------
-
-def usaid_worker_home_nav():
-    st.sidebar.page_link(
-        "pages/10_USAID_Worker_Home.py", label="USAID Worker Home", icon="🏠"
-    )
-
-
-def ngo_directory_nav():
-    st.sidebar.page_link("pages/14_NGO_Directory.py", label="NGO Directory", icon="📁")
-
-
-def add_ngo_nav():
-    st.sidebar.page_link("pages/15_Add_NGO.py", label="Add New NGO", icon="➕")
-
-
-def prediction_nav():
-    st.sidebar.page_link(
-        "pages/11_Prediction.py", label="Regression Prediction", icon="📈"
-    )
-
-
-def api_test_nav():
-    st.sidebar.page_link("pages/12_API_Test.py", label="Test the API", icon="🛜")
-
-
-def classification_nav():
-    st.sidebar.page_link(
-        "pages/13_Classification.py", label="Classification Demo", icon="🌺"
-    )
-
-
-# ---- Role: administrator ----------------------------------------------------
-
+# Admin
 def admin_home_nav():
-    st.sidebar.page_link("pages/20_Admin_Home.py", label="System Admin", icon="🖥️")
+    st.sidebar.page_link("pages/20_Admin_Home.py", label="Admin Home", icon="🛡️")
+def manage_categories_nav():
+    st.sidebar.page_link("pages/21_Manage_Categories.py", label="Manage Categories", icon="🏷️")
+def user_management_nav():
+    st.sidebar.page_link("pages/22_User_Management.py", label="User Management", icon="👥")
+def system_logs_nav():
+    st.sidebar.page_link("pages/23_System_Logs.py", label="System Logs", icon="📋")
 
+# Employee
+def employee_home_nav():
+    st.sidebar.page_link("pages/30_Employee_Home.py", label="Employee Home", icon="💰")
+def my_expenses_nav():
+    st.sidebar.page_link("pages/31_My_Expenses.py", label="My Expenses", icon="🧾")
+def income_bills_nav():
+    st.sidebar.page_link("pages/32_Income_Bills.py", label="Income & Bills", icon="🏠")
+def investments_nav():
+    st.sidebar.page_link("pages/33_Investments.py", label="Investments", icon="📊")
 
-def ml_model_mgmt_nav():
-    st.sidebar.page_link(
-        "pages/21_ML_Model_Mgmt.py", label="ML Model Management", icon="🏢"
-    )
-
-
-# ---- Sidebar assembly -------------------------------------------------------
 
 def SideBarLinks(show_home=False):
-    """
-    Renders sidebar navigation links based on the logged-in user's role.
-    The role is stored in st.session_state when the user logs in on Home.py.
-    """
-
-    # Logo appears at the top of the sidebar on every page
     st.sidebar.image("assets/logo.png", width=150)
-
-    # If no one is logged in, send them to the Home (login) page
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
         st.switch_page("Home.py")
-
     if show_home:
         home_nav()
-
     if st.session_state["authenticated"]:
-
-        if st.session_state["role"] == "pol_strat_advisor":
-            pol_strat_home_nav()
-            world_bank_viz_nav()
-            map_demo_nav()
-
-        if st.session_state["role"] == "usaid_worker":
-            usaid_worker_home_nav()
-            ngo_directory_nav()
-            add_ngo_nav()
-            prediction_nav()
-            api_test_nav()
-            classification_nav()
-
-        if st.session_state["role"] == "administrator":
-            admin_home_nav()
-            ml_model_mgmt_nav()
-
-    # About link appears at the bottom for all roles
+        role = st.session_state["role"]
+        if role == "student":
+            student_home_nav(); semester_budget_nav(); track_expenses_nav(); savings_goals_nav()
+        elif role == "analyst":
+            analyst_home_nav(); portfolio_overview_nav(); spending_analysis_nav(); risk_returns_nav()
+        elif role == "admin":
+            admin_home_nav(); manage_categories_nav(); user_management_nav(); system_logs_nav()
+        elif role == "employee":
+            employee_home_nav(); my_expenses_nav(); income_bills_nav(); investments_nav()
     about_page_nav()
-
     if st.session_state["authenticated"]:
         if st.sidebar.button("Logout"):
             del st.session_state["role"]
