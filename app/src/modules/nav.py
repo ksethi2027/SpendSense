@@ -4,8 +4,7 @@ import streamlit as st
 def home_nav():
     st.sidebar.page_link("Home.py", label="Home", icon="🏠")
 
-def about_page_nav():
-    st.sidebar.page_link("pages/40_About.py", label="About", icon="ℹ️")
+
 
 # Student
 def student_home_nav():
@@ -49,7 +48,9 @@ def investments_nav():
 
 
 def SideBarLinks(show_home=False):
-    st.sidebar.image("assets/logo.png", width=150)
+    import os
+    if os.path.exists("assets/logo.png"):
+        st.sidebar.image("assets/logo.png", width=150)
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
         st.switch_page("Home.py")
@@ -65,7 +66,7 @@ def SideBarLinks(show_home=False):
             admin_home_nav(); manage_categories_nav(); user_management_nav(); system_logs_nav()
         elif role == "employee":
             employee_home_nav(); my_expenses_nav(); income_bills_nav(); investments_nav()
-    about_page_nav()
+    
     if st.session_state["authenticated"]:
         if st.sidebar.button("Logout"):
             del st.session_state["role"]

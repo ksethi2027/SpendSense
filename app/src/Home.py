@@ -90,5 +90,3 @@ with col4:
         st.session_state['first_name'] = name
         st.session_state['user_id'] = uid
         st.switch_page('pages/20_Admin_Home.py')
-
-
