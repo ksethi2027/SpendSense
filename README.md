@@ -65,7 +65,7 @@ SpendSense provides personalized financial tools for four distinct user personas
 - **Containerization**: Docker & Docker Compose
 
 ## Demo Video
-[Link to demo video — INSERT HERE]
+https://drive.google.com/file/d/1xV-cQ_AnEXZ1z0RutDZeq3jv0ct3WVRy/view?usp=sharing
 
 ## API Endpoints
 The API is organized into 4 blueprints with 35+ routes:
